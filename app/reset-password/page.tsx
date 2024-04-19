@@ -37,13 +37,16 @@ export default function ResetPasswordPage() {
 
   const handleSubmit = async () => {
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/reset-password`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ userPassword, token }),
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/reset-password`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ userPassword, token }),
+        }
+      );
       if (confirm !== userPassword) {
         setErrorAlert(true);
       } else {

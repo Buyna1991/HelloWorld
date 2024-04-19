@@ -73,7 +73,7 @@ export default function EditCountry() {
       updatedData.independent = editedIndependent === "True";
 
       const response = await fetch(
-        `http://localhost:8000/world/countries/${countryId}`,
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/${countryId}`,
         {
           method: "PUT",
           headers: {
