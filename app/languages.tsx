@@ -1,8 +1,9 @@
 import Link from "next/link";
-import { Boxstyle, Pagelayout } from "./page";
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Box, MenuItem, Select } from "@mui/material";
+import { NormalCssProperties } from "@mui/material/styles/createMixins";
 interface Country {
   _id: String;
   name: { common: String };
@@ -42,7 +43,7 @@ export const Language = () => {
     fetchData();
   }, [selectedLanguage]);
 
-  const handleDropdownChange = async (event:any) => {
+  const handleDropdownChange = async (event: any) => {
     const selectedLanguage = event.target.value;
     setSelectedLanguage(selectedLanguage);
   };
@@ -51,8 +52,7 @@ export const Language = () => {
     <div>
       <Box style={{ paddingLeft: "56px" }}>
         <h1 style={{ color: "#10a37f", fontSize: "25px" }}>
-          API:"/world/countriesbyLanguage{selectedLanguage}
-          "
+          API:"/world/countriesbyLanguage{selectedLanguage}"
         </h1>
         <Select
           sx={{ width: "520px" }}
@@ -144,12 +144,12 @@ export const Language = () => {
               <h2 style={{ color: "Black" }}>
                 Google Map:{" "}
                 <Link
-                target="_blank"
-                href={String(country.maps.googleMaps)}
-                passHref
-              >
-                {country.maps.googleMaps}
-              </Link>
+                  target="_blank"
+                  href={String(country.maps.googleMaps)}
+                  passHref
+                >
+                  {country.maps.googleMaps}
+                </Link>
               </h2>
             )}
             <h2 style={{ color: "Black" }}>Id : {country._id}</h2>
@@ -158,4 +158,26 @@ export const Language = () => {
       </Box>
     </div>
   );
+};
+
+const Pagelayout: NormalCssProperties = {
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  flexWrap: "wrap",
+  gap: "20px",
+};
+
+const Boxstyle: NormalCssProperties = {
+  overflow: "hidden",
+  position: "relative",
+  justifyContent: "center",
+  border: 2,
+  borderRadius: 5,
+  borderColor: "primary.main",
+  padding: 2,
+  marginBottom: 2,
+  width: 520,
+  fontSize: 20,
+  boxShadow: "10",
 };

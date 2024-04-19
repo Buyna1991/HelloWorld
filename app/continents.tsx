@@ -1,8 +1,9 @@
 import Link from "next/link";
-import { Boxstyle } from "./page";
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Box, MenuItem, Select } from "@mui/material";
+import { NormalCssProperties } from "@mui/material/styles/createMixins";
 interface Country {
   _id: String;
   name: { common: String };
@@ -154,4 +155,18 @@ export const Continents = () => {
       </Box>
     </div>
   );
+};
+
+const Boxstyle: NormalCssProperties = {
+  overflow: "hidden",
+  position: "relative",
+  justifyContent: "center",
+  border: 2,
+  borderRadius: 5,
+  borderColor: "primary.main",
+  padding: 2,
+  marginBottom: 2,
+  width: 520,
+  fontSize: 20,
+  boxShadow: "10",
 };

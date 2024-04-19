@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Boxstyle } from "./page";
+
 import { Box, CircularProgress } from "@mui/material";
 import { useRouter } from "next/navigation";
+import { NormalCssProperties } from "@mui/material/styles/createMixins";
 
 interface Country {
   _id: string;
@@ -31,13 +32,16 @@ export const AllCountries = () => {
           return;
         }
 
-        const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/world/countries`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/world/countries`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
         const data = await res.json();
         setCountryData(data);
         setLoading(false);
@@ -172,4 +176,18 @@ export const AllCountries = () => {
       </Box>
     </Box>
   );
+};
+
+const Boxstyle: NormalCssProperties = {
+  overflow: "hidden",
+  position: "relative",
+  justifyContent: "center",
+  border: 2,
+  borderRadius: 5,
+  borderColor: "primary.main",
+  padding: 2,
+  marginBottom: 2,
+  width: 520,
+  fontSize: 20,
+  boxShadow: "10",
 };

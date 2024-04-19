@@ -187,7 +187,7 @@ export default function BasicTabs() {
   );
 }
 
-export const Pagelayout: NormalCssProperties = {
+const Pagelayout: NormalCssProperties = {
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
@@ -195,7 +195,7 @@ export const Pagelayout: NormalCssProperties = {
   gap: "20px",
 };
 
-export const Boxstyle: NormalCssProperties = {
+const Boxstyle: NormalCssProperties = {
   overflow: "hidden",
   position: "relative",
   justifyContent: "center",
