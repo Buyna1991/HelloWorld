@@ -14,7 +14,8 @@ import CreateCountry from "./createCountry";
 import EditCountry from "./editCountry";
 import { useRouter } from "next/navigation";
 import DeleteCountry from "./deleteCountry";
-import world from "@/public/world.jpeg";
+import { NormalCssProperties } from "@mui/material/styles/createMixins";
+
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -141,7 +142,7 @@ export default function BasicTabs() {
         >
           <br></br>
           <div style={Pagelayout}>
-            <Countries> </Countries>
+            <Countries/> 
           </div>
         </div>
       </CustomTabPanel>
@@ -156,7 +157,7 @@ export default function BasicTabs() {
         >
           <br></br>
           <div style={Pagelayout}>
-            <Continents> </Continents>
+            <Continents/> 
           </div>
         </div>
       </CustomTabPanel>
@@ -170,8 +171,8 @@ export default function BasicTabs() {
           }}
         >
           <br></br>
-          <div style={Pagelayout}>
-            <Language> </Language>
+          <div style={Pagelayout }>
+            <Language/> 
           </div>
         </div>
       </CustomTabPanel>
@@ -179,7 +180,7 @@ export default function BasicTabs() {
         <CreateCountry></CreateCountry>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={5}>
-        <EditCountry> </EditCountry>
+        <EditCountry/> 
       </CustomTabPanel>
           
       <CustomTabPanel value={value} index={6}>
@@ -189,7 +190,7 @@ export default function BasicTabs() {
   );
 }
 
-export const Pagelayout = {
+export const Pagelayout:NormalCssProperties  = {
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
