@@ -198,7 +198,7 @@ const Pagelayout:NormalCssProperties  = {
   gap: "20px",
 };
 
-const Boxstyle = {
+export const Boxstyle = {
   overflow: "hidden",
   position: "relative",
   justifyContent: "center",
