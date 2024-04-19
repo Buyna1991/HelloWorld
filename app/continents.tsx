@@ -13,7 +13,7 @@ interface Country {
   independent: boolean;
   population: Number;
   maps: { googleMaps: String };
-  languages: String;
+  languages: { [key: string]: string };
 }
 
 export const Continents = () => {
@@ -24,7 +24,7 @@ export const Continents = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/world/${selectedContinent}`,
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/world/${selectedContinent}`,
           {
             method: "GET",
             headers: {
@@ -34,6 +34,7 @@ export const Continents = () => {
           }
         );
         setCountryData(response.data);
+        console.log(response.data);
       } catch (error) {
         console.error("Error fetching country data:", error);
       }
@@ -42,7 +43,7 @@ export const Continents = () => {
     fetchData();
   }, [selectedContinent]);
 
-  const handleDropdownChange = async (event) => {
+  const handleDropdownChange = async (event: any) => {
     const selectedContinent = event.target.value;
     setSelectedContinent(selectedContinent);
   };
@@ -51,7 +52,7 @@ export const Continents = () => {
     <div>
       <Box style={{ paddingLeft: "56px" }}>
         <h1 style={{ color: "#10a37f", fontSize: "25px" }}>
-          API:"http://localhost:8000/world/{selectedContinent}"
+          API:'/world/{selectedContinent}'
         </h1>
         <Select
           sx={{ width: "520px" }}
@@ -77,8 +78,8 @@ export const Continents = () => {
           justifyContent: "center",
         }}
       >
-        {countryData.map((country) => (
-          <Box key={country._id} sx={Boxstyle}>
+        {countryData && countryData.map((country) => (
+          <Box key={String(country._id)} sx={Boxstyle}>
             <h2
               style={{
                 color: "Black",
@@ -142,7 +143,7 @@ export const Continents = () => {
             {country.maps && country.maps.googleMaps && (
               <h2 style={{ color: "Black" }}>
                 Google Map:{" "}
-                <Link target="_blank" href={country.maps.googleMaps}>
+                <Link target="_blank" href={String(country.maps.googleMaps)}>
                   {country.maps.googleMaps}
                 </Link>
               </h2>

@@ -16,7 +16,7 @@ export default function ForgotPasswordPage() {
 
   const handleSubmit = async () => {
     try {
-      const res = await fetch("http://localhost:8000/forgot-password", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/forgot-password`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

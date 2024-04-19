@@ -1,10 +1,8 @@
-
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Boxstyle } from "./page";
 import { Box, CircularProgress } from "@mui/material";
 import { useRouter } from "next/navigation";
-
 
 interface Country {
   _id: string;
@@ -16,7 +14,7 @@ interface Country {
   independent: boolean;
   population: number;
   maps: { googleMaps: string };
-  languages: string;
+  languages: { [key: string]: string };
 }
 
 export const AllCountries = () => {
@@ -33,7 +31,7 @@ export const AllCountries = () => {
           return;
         }
 
-        const res = await fetch ("http://localhost:8000/world/countries", {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/world/countries`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -59,14 +57,13 @@ export const AllCountries = () => {
   }, []);
 
   return (
-    <Box >
+    <Box>
       {loading && (
         <div
           style={{
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            
           }}
         >
           <CircularProgress />
@@ -84,7 +81,7 @@ export const AllCountries = () => {
           <h1
             style={{ fontSize: "25px", color: "#10a37f", marginBottom: "20px" }}
           >
-            API: "http://localhost:8000/world/countries"
+            API: "/world/countries"
           </h1>
         </div>
       )}

@@ -23,7 +23,7 @@ interface Country {
 
 export default function CreateCountry() {
   const [name, setName] = useState("");
-  const [population, setPopulation] = useState<Number>(0);
+  const [population, setPopulation] = useState<number | string>('');
   const [region, setRegion] = useState("");
   const [capital, setCapital] = useState("");
   const [languages, setLanguages] = useState("");
@@ -61,7 +61,7 @@ export default function CreateCountry() {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/world/countries/create",
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/world/countries/create`,
         {
           name: {
             common: name,

@@ -13,7 +13,7 @@ interface Country {
   independent: boolean;
   population: Number;
   maps: { googleMaps: String };
-  languages: String;
+  languages: { [key: string]: string };
 }
 
 export const Language = () => {
@@ -24,7 +24,7 @@ export const Language = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/world/countriesbyLanguage/${selectedLanguage}`,
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/world/countriesbyLanguage/${selectedLanguage}`,
           {
             method: "GET",
             headers: {
@@ -42,7 +42,7 @@ export const Language = () => {
     fetchData();
   }, [selectedLanguage]);
 
-  const handleDropdownChange = async (event) => {
+  const handleDropdownChange = async (event:any) => {
     const selectedLanguage = event.target.value;
     setSelectedLanguage(selectedLanguage);
   };
@@ -51,7 +51,7 @@ export const Language = () => {
     <div>
       <Box style={{ paddingLeft: "56px" }}>
         <h1 style={{ color: "#10a37f", fontSize: "25px" }}>
-          API:"http://localhost:8000/world/countriesbyLanguage{selectedLanguage}
+          API:"/world/countriesbyLanguage{selectedLanguage}
           "
         </h1>
         <Select
@@ -79,7 +79,7 @@ export const Language = () => {
         }}
       >
         {countryData.map((country) => (
-          <Box key={country._id} sx={Boxstyle}>
+          <Box key={String(country._id)} sx={Boxstyle}>
             <h2
               style={{
                 color: "Black",
@@ -143,9 +143,13 @@ export const Language = () => {
             {country.maps && country.maps.googleMaps && (
               <h2 style={{ color: "Black" }}>
                 Google Map:{" "}
-                <Link target="_blank" href={country.maps.googleMaps}>
-                  {country.maps.googleMaps}
-                </Link>
+                <Link
+                target="_blank"
+                href={String(country.maps.googleMaps)}
+                passHref
+              >
+                {country.maps.googleMaps}
+              </Link>
               </h2>
             )}
             <h2 style={{ color: "Black" }}>Id : {country._id}</h2>

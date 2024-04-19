@@ -34,7 +34,7 @@ export default function SignUpPage() {
 
   const handleSignUp = async () => {
     try {
-      const res = await fetch("http://localhost:8000/register", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

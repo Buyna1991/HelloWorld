@@ -34,7 +34,7 @@ export default function EditCountry() {
   const getCountryData = async () => {
     try {
       const response = await fetch(
-        `http://localhost:8000/world/countries/${countryId}`,
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/world/countries/${countryId}`,
         {
           method: "GET",
           headers: {

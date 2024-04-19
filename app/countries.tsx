@@ -13,7 +13,7 @@ interface Country {
   independent: boolean;
   population: Number;
   maps: { googleMaps: String };
-  languages: String;
+  languages: { [key: string]: string };
 }
 
 export const Countries = () => {
@@ -24,7 +24,7 @@ export const Countries = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/world/countriesbyName/${selectedCountry}`,
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/world/countriesbyName/${selectedCountry}`,
           {
             method: "GET",
             headers: {
@@ -42,7 +42,7 @@ export const Countries = () => {
     fetchData();
   }, [selectedCountry]);
 
-  const handleDropdownChange = async (event) => {
+  const handleDropdownChange = async (event: any) => {
     const selectedCountry = event.target.value;
     setSelectedCountry(selectedCountry);
   };
@@ -58,7 +58,7 @@ export const Countries = () => {
         }}
       >
         <h1 style={{ color: "#10a37f", fontSize: "25px", display: "flex" }}>
-          API:"http://localhost:8000/world/countriesbyName/{selectedCountry}"{" "}
+          API:"/world/countriesbyName/{selectedCountry}"{" "}
         </h1>
       </div>
       <Select
@@ -82,7 +82,7 @@ export const Countries = () => {
 
       <br></br>
       {countryData.map((country) => (
-        <Box key={country._id} sx={Boxstyle}>
+        <Box key={String(country._id)} sx={Boxstyle}>
           <h2
             style={{
               color: "Black",
@@ -145,7 +145,11 @@ export const Countries = () => {
           {country.maps && country.maps.googleMaps && (
             <h2 style={{ color: "Black" }}>
               Google Map:{" "}
-              <Link target="_blank" href={country.maps.googleMaps}>
+              <Link
+                target="_blank"
+                href={String(country.maps.googleMaps)}
+                passHref
+              >
                 {country.maps.googleMaps}
               </Link>
             </h2>
