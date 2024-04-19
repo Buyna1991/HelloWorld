@@ -16,7 +16,6 @@ import { useRouter } from "next/navigation";
 import DeleteCountry from "./deleteCountry";
 import { NormalCssProperties } from "@mui/material/styles/createMixins";
 
-
 interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
@@ -60,7 +59,7 @@ export default function BasicTabs() {
     setValue(newValue);
   };
   const handleLogOut = () => {
-    localStorage.removeItem("token")
+    localStorage.removeItem("token");
     router.push("/login");
     console.log("Logging out...");
   };
@@ -93,7 +92,6 @@ export default function BasicTabs() {
             alignContent: "center",
             alignItems: "center",
             justifyContent: "center",
-           
           }}
         >
           <Tab label="All Country" {...a11yProps(0)} />
@@ -108,7 +106,6 @@ export default function BasicTabs() {
               color: "#10a37f",
               fontWeight: "bolder",
               borderRadius: "4px",
-              
             }}
             onClick={handleLogOut}
             label="Log Out"
@@ -142,7 +139,7 @@ export default function BasicTabs() {
         >
           <br></br>
           <div style={Pagelayout}>
-            <Countries/> 
+            <Countries />
           </div>
         </div>
       </CustomTabPanel>
@@ -157,7 +154,7 @@ export default function BasicTabs() {
         >
           <br></br>
           <div style={Pagelayout}>
-            <Continents/> 
+            <Continents />
           </div>
         </div>
       </CustomTabPanel>
@@ -171,8 +168,8 @@ export default function BasicTabs() {
           }}
         >
           <br></br>
-          <div style={Pagelayout }>
-            <Language/> 
+          <div style={Pagelayout}>
+            <Language />
           </div>
         </div>
       </CustomTabPanel>
@@ -180,17 +177,17 @@ export default function BasicTabs() {
         <CreateCountry></CreateCountry>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={5}>
-        <EditCountry/> 
+        <EditCountry />
       </CustomTabPanel>
-          
+
       <CustomTabPanel value={value} index={6}>
-      <DeleteCountry></DeleteCountry>
+        <DeleteCountry></DeleteCountry>
       </CustomTabPanel>
     </Box>
   );
 }
 
-const Pagelayout:NormalCssProperties  = {
+export const Pagelayout: NormalCssProperties = {
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
@@ -198,16 +195,16 @@ const Pagelayout:NormalCssProperties  = {
   gap: "20px",
 };
 
-export const Boxstyle = {
+export const Boxstyle: NormalCssProperties = {
   overflow: "hidden",
   position: "relative",
   justifyContent: "center",
   border: 2,
   borderRadius: 5,
   borderColor: "primary.main",
-  p: 2,
+  padding: 2,
   marginBottom: 2,
   width: 520,
   fontSize: 20,
-  boxShadow: 10,
+  boxShadow: "10",
 };
