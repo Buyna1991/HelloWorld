@@ -15,7 +15,7 @@ export default function SignUpPage() {
   const router = useRouter();
   const [successAlert, setSuccessAlert] = useState(false);
 
-  const validateEmail = (email) => {
+  const validateEmail = (email:any) => {
     const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;;
     return regex.test(email);
   };
@@ -89,7 +89,7 @@ export default function SignUpPage() {
           helperText={!isValidEmail && "Please enter a valid email address"}
           onChange={(event) => {
             setUserName(event.target.value);
-            setIsValidEmail(true); // Reset error when user types
+            setIsValidEmail(true); 
           }}
           id="outlined-multiline-flexible"
           type="email"
