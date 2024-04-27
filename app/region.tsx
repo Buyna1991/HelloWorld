@@ -145,9 +145,13 @@ export const Continents = () => {
             {country.maps && country.maps.googleMaps && (
                 <h2 style={{ color: "#10a37f",display:"flex",  }}>
                   <Image src="/map.png" width={40} height={40} alt="Map icon" />
-                  <Link target="_blank" style={{paddingTop:"20px", paddingLeft:"10px"}} href={country.maps.googleMaps}>
-                    {country.maps.googleMaps}
-                  </Link>
+                  <Link
+                  target="_blank"
+                  href={String(country.maps.googleMaps)}
+                  passHref
+                >
+                  {country.maps.googleMaps}
+                </Link>
                 </h2>
               )}
             <h2 style={{ color: "Black" }}>Id : {country._id}</h2>
