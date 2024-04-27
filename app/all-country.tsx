@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
-
+import styles from "./Country.module.css"; // Importing CSS module
 import { Box, CircularProgress } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { NormalCssProperties } from "@mui/material/styles/createMixins";
+import Image from "next/image";
 
 interface Country {
   _id: string;
@@ -85,7 +86,7 @@ export const AllCountries = () => {
           <h1
             style={{ fontSize: "25px", color: "#10a37f", marginBottom: "20px" }}
           >
-            API: "/world/countries"
+            API: /world/countries
           </h1>
         </div>
       )}
@@ -146,11 +147,10 @@ export const AllCountries = () => {
               </h2>
               <h2
                 style={{
-                  color: "Black",
-                  fontSize: "200px",
+                  fontSize: "160px",
                   position: "absolute",
                   top: "10px",
-                  right: "20px",
+                  right: "60px",
                 }}
               >
                 {" "}
@@ -163,13 +163,18 @@ export const AllCountries = () => {
                 Independent: {JSON.stringify(country.independent)}
               </h2>
               {country.maps && country.maps.googleMaps && (
-                <h2 style={{ color: "Black" }}>
-                  Google Map:{" "}
-                  <Link target="_blank" href={country.maps.googleMaps}>
+                <h2 style={{ color: "#10a37f", display: "flex" }}>
+                  <Image src="/map.png" width={40} height={40} alt="Map icon" />
+                  <Link
+                    target="_blank"
+                    style={{ paddingTop: "20px", paddingLeft: "10px" }}
+                    href={country.maps.googleMaps}
+                  >
                     {country.maps.googleMaps}
                   </Link>
                 </h2>
               )}
+
               <h2 style={{ color: "Black" }}>Id : {country._id}</h2>
             </Box>
           ))}

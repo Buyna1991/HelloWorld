@@ -83,13 +83,13 @@ export default function LoginPage() {
             fontFamily: "sans-serif",
           }}
         >
-          Hello World
+          Welcome
         </h1>
       </div>
       <div>
         <TextField
           id="outlined-multiline-flexible"
-          label="Username"
+          label="Enter Your Email"
           type="text"
           multiline
           maxRows={4}

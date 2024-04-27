@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Box, MenuItem, Select } from "@mui/material";
 import { NormalCssProperties } from "@mui/material/styles/createMixins";
+import Image from "next/image";
 interface Country {
   _id: String;
   name: { common: String };
@@ -53,7 +54,7 @@ export const Continents = () => {
     <div>
       <Box style={{ paddingLeft: "56px" }}>
         <h1 style={{ color: "#10a37f", fontSize: "25px" }}>
-          API:'/world/{selectedContinent}'
+          API:/world/selectedRegion
         </h1>
         <Select
           sx={{ width: "520px" }}
@@ -142,13 +143,13 @@ export const Continents = () => {
               Independent: {JSON.stringify(country.independent)}
             </h2>
             {country.maps && country.maps.googleMaps && (
-              <h2 style={{ color: "Black" }}>
-                Google Map:{" "}
-                <Link target="_blank" href={String(country.maps.googleMaps)}>
-                  {country.maps.googleMaps}
-                </Link>
-              </h2>
-            )}
+                <h2 style={{ color: "#10a37f",display:"flex",  }}>
+                  <Image src="/map.png" width={40} height={40} alt="Map icon" />
+                  <Link target="_blank" style={{paddingTop:"20px", paddingLeft:"10px"}} href={country.maps.googleMaps}>
+                    {country.maps.googleMaps}
+                  </Link>
+                </h2>
+              )}
             <h2 style={{ color: "Black" }}>Id : {country._id}</h2>
           </Box>
         ))}

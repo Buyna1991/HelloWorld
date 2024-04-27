@@ -1,46 +1,41 @@
-"use client";
-import * as React from "react";
+"use client"
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import {
-  Button,
-  FormControl,
-  IconButton,
-  InputAdornment,
-  InputLabel,
-  OutlinedInput,
-} from "@mui/material";
+import Button from "@mui/material/Button";
 import Link from "next/link";
 import world from "@/public/world.jpeg";
-import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Alert from "@mui/material/Alert";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 export default function SignUpPage() {
   const [userName, setUserName] = useState("");
   const [userPassword, setUserPassword] = useState("");
+  const [isValidEmail, setIsValidEmail] = useState(true);
   const router = useRouter();
   const [successAlert, setSuccessAlert] = useState(false);
-  const [showPassword, setShowPassword] = React.useState(false);
 
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
-
-  const handleMouseDownPassword = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.preventDefault();
+  const validateEmail = (email) => {
+    const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;;
+    return regex.test(email);
   };
 
   const handleSignUp = async () => {
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/register`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ userName, userPassword }),
-      });
+      if (!validateEmail(userName)) {
+        setIsValidEmail(false);
+        return;
+      }
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/register`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ userName, userPassword }),
+        }
+      );
       if (res.status === 200) {
         const data = await res.json();
         localStorage.setItem("token", data.token);
@@ -90,41 +85,28 @@ export default function SignUpPage() {
       </div>
       <div>
         <TextField
+          error={!isValidEmail}
+          helperText={!isValidEmail && "Please enter a valid email address"}
           onChange={(event) => {
             setUserName(event.target.value);
+            setIsValidEmail(true); // Reset error when user types
           }}
           id="outlined-multiline-flexible"
-          label="Username"
+          type="email"
+          label="Email"
           multiline
-          maxRows={4}
+          maxRows={1}
         />
       </div>
       <div>
-        <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
-          <InputLabel htmlFor="outlined-adornment-password">
-            Password
-          </InputLabel>
-          <OutlinedInput
-            onChange={(event) => {
-              setUserPassword(event.target.value);
-            }}
-            id="outlined-adornment-password"
-            type={showPassword ? "text" : "password"}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  edge="end"
-                >
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            }
-            label="Password"
-          />
-        </FormControl>
+        <TextField
+          onChange={(event) => {
+            setUserPassword(event.target.value);
+          }}
+          id="outlined-adornment-password"
+          type="password"
+          label="Password"
+        />
       </div>
       <Button
         onClick={handleSignUp}

@@ -124,6 +124,9 @@ export default function CreateCountry() {
         autoComplete="off"
       >
         <h1 style={{ fontSize: "25px", marginLeft: "10px", color: "#10a37f" }}>
+          API: /world/countries/create
+        </h1>
+        <h1 style={{ fontSize: "25px", marginLeft: "10px", color: "#10a37f" }}>
           Create a Country
         </h1>
         <div

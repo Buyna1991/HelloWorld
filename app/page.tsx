@@ -8,7 +8,7 @@ import Box from "@mui/material/Box";
 
 import { AllCountries } from "./all-country";
 import { Countries } from "./countries";
-import { Continents } from "./continents";
+import { Continents } from "./region";
 import { Language } from "./languages";
 import CreateCountry from "./createCountry";
 import EditCountry from "./editCountry";

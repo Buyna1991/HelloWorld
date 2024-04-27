@@ -104,6 +104,8 @@ export default function EditCountry() {
 
   return (
     <Box style={{ marginLeft: "350px" }}>
+       <h1 style={{ color: "#10a37f", fontSize: "25px" }}> API : /world/countries/id</h1>
+     
       <h1 style={{ color: "#10a37f", fontSize: "25px" }}>Edit a Country</h1>
 
       <TextField
