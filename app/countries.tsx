@@ -56,10 +56,10 @@ export const Countries = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          textAlign: "center",
+        
         }}
       >
-        <h1 style={{ color: "#10a37f", fontSize: "25px", display: "flex" }}>
+        <h1 style={{ color: "#10a37f", fontSize: "25px", paddingRight:"194px" }}>
           API:/world/countriesbyName/{selectedCountry}
         </h1>
       </div>

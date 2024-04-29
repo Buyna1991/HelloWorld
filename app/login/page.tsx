@@ -45,7 +45,7 @@ export default function LoginPage() {
         const data = await res.json();
         localStorage.setItem("token", data.token);
         console.log(data);
-        router.push("/");
+        router.push("/home");
       } else if (res.status === 401) {
         setErrorAlert(true);
       }
