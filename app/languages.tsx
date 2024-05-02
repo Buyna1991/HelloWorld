@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Box, MenuItem, Select } from "@mui/material";
 import { NormalCssProperties } from "@mui/material/styles/createMixins";
+import Image from "next/image";
+import copy from "@/public/clipboard.webp";
 interface Country {
   _id: String;
   name: { common: String };
@@ -47,7 +49,9 @@ export const Language = () => {
     const selectedLanguage = event.target.value;
     setSelectedLanguage(selectedLanguage);
   };
-
+  const copyIdToClipboard = (id: string) => {
+    navigator.clipboard.writeText(id);
+  };
   return (
     <div>
       <Box style={{ paddingLeft: "56px" }}>
@@ -126,10 +130,10 @@ export const Language = () => {
             <h2
               style={{
                 color: "Black",
-                fontSize: "200px",
+                fontSize: "160px",
                 position: "absolute",
                 top: "10px",
-                right: "20px",
+                right: "60px",
               }}
             >
               {country.flag}
@@ -141,8 +145,8 @@ export const Language = () => {
               Independent: {JSON.stringify(country.independent)}
             </h2>
             {country.maps && country.maps.googleMaps && (
-              <h2 style={{ color: "Black" }}>
-                Google Map:{" "}
+              <h2 style={{ color: "#10a37f", display: "flex" }}>
+                <Image src="/map.png" width={40} height={40} alt="Map icon" />
                 <Link
                   target="_blank"
                   href={String(country.maps.googleMaps)}
@@ -152,7 +156,20 @@ export const Language = () => {
                 </Link>
               </h2>
             )}
-            <h2 style={{ color: "Black" }}>Id : {country._id}</h2>
+              <h2 style={{ color: "Black" }}>
+                Id : {country._id}{" "}
+                <button
+                  style={{ width: "30px", height: "30px" }}
+                  onClick={() => copyIdToClipboard(String(country._id))}
+                >
+                  <Image
+                    src={copy}
+                    alt="Copy"
+                    height={25}
+                    style={{ paddingTop: "10px", marginLeft: "20px" }}
+                  />
+                </button>
+              </h2>
           </Box>
         ))}
       </Box>

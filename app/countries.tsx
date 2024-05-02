@@ -1,20 +1,21 @@
 import Link from "next/link";
-
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Box, MenuItem, Select } from "@mui/material";
 import { NormalCssProperties } from "@mui/material/styles/createMixins";
 import Image from "next/image";
+import copy from "@/public/clipboard.webp";
+
 interface Country {
-  _id: String;
-  name: { common: String };
-  region: String;
-  capital: String[];
-  flag: String;
+  _id: string;
+  name: { common: string };
+  region: string;
+  capital: string[];
+  flag: string;
   landlocked: boolean;
   independent: boolean;
-  population: Number;
-  maps: { googleMaps: String };
+  population: number;
+  maps: { googleMaps: string };
   languages: { [key: string]: string };
 }
 
@@ -49,6 +50,10 @@ export const Countries = () => {
     setSelectedCountry(selectedCountry);
   };
 
+  const copyIdToClipboard = (id: string) => {
+    navigator.clipboard.writeText(id);
+  };
+
   return (
     <Box style={{ paddingLeft: "56px" }}>
       <div
@@ -56,10 +61,9 @@ export const Countries = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-        
         }}
       >
-        <h1 style={{ color: "#10a37f", fontSize: "25px", paddingRight:"194px" }}>
+        <h1 style={{ color: "#10a37f", fontSize: "25px", paddingRight: "194px" }}>
           API:/world/countriesbyName/{selectedCountry}
         </h1>
       </div>
@@ -82,7 +86,7 @@ export const Countries = () => {
         <MenuItem value="Japan">Japan</MenuItem>
       </Select>
 
-      <br></br>
+      <br />
       {countryData.map((country) => (
         <Box key={String(country._id)} sx={Boxstyle}>
           <h2
@@ -130,10 +134,10 @@ export const Countries = () => {
           <h2
             style={{
               color: "Black",
-              fontSize: "200px",
+              fontSize: "160px",
               position: "absolute",
               top: "10px",
-              right: "20px",
+              right: "60px",
             }}
           >
             {country.flag}
@@ -147,21 +151,19 @@ export const Countries = () => {
           {country.maps && country.maps.googleMaps && (
             <h2 style={{ color: "#10a37f", display: "flex" }}>
               <Image src="/map.png" width={40} height={40} alt="Map icon" />
-              <Link
-                  target="_blank"
-                  href={String(country.maps.googleMaps)}
-                  passHref
-                >
-                  {country.maps.googleMaps}
-                </Link>
+              <Link target="_blank" href={String(country.maps.googleMaps)} passHref>
+                {country.maps.googleMaps}
+              </Link>
             </h2>
           )}
-          <h2 style={{ color: "Black" }}>Id : {country._id}</h2>
+          <h2 style={{ color: "Black" }}>Id : {country._id}  <button style={{width:"30px",height:"30px",}}onClick={() => copyIdToClipboard(country._id)}><Image src={copy} alt="Copy" height={25} style={{paddingTop:"10px",marginLeft:"20px"}}/></button></h2>
+         
         </Box>
       ))}
     </Box>
   );
 };
+
 const Boxstyle: NormalCssProperties = {
   overflow: "hidden",
   position: "relative",

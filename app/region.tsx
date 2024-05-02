@@ -5,6 +5,7 @@ import axios from "axios";
 import { Box, MenuItem, Select } from "@mui/material";
 import { NormalCssProperties } from "@mui/material/styles/createMixins";
 import Image from "next/image";
+import copy from "@/public/clipboard.webp";
 interface Country {
   _id: String;
   name: { common: String };
@@ -49,7 +50,9 @@ export const Continents = () => {
     const selectedContinent = event.target.value;
     setSelectedContinent(selectedContinent);
   };
-
+  const copyIdToClipboard = (id: string) => {
+    navigator.clipboard.writeText(id);
+  };
   return (
     <div>
       <Box style={{ paddingLeft: "56px" }}>
@@ -128,10 +131,10 @@ export const Continents = () => {
             <h2
               style={{
                 color: "Black",
-                fontSize: "200px",
+                fontSize: "160px",
                 position: "absolute",
                 top: "10px",
-                right: "20px",
+                right: "60px",
               }}
             >
               {country.flag}
@@ -154,7 +157,20 @@ export const Continents = () => {
                 </Link>
                 </h2>
               )}
-            <h2 style={{ color: "Black" }}>Id : {country._id}</h2>
+             <h2 style={{ color: "Black" }}>
+                Id : {country._id}{" "}
+                <button
+                  style={{ width: "30px", height: "30px" }}
+                  onClick={() => copyIdToClipboard(String(country._id))}
+                >
+                  <Image
+                    src={copy}
+                    alt="Copy"
+                    height={25}
+                    style={{ paddingTop: "10px", marginLeft: "20px" }}
+                  />
+                </button>
+              </h2>
           </Box>
         ))}
       </Box>

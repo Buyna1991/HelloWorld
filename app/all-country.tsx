@@ -5,6 +5,7 @@ import { Box, CircularProgress } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { NormalCssProperties } from "@mui/material/styles/createMixins";
 import Image from "next/image";
+import copy from"@/public/clipboard.webp";
 
 interface Country {
   _id: string;
@@ -60,7 +61,9 @@ export const AllCountries = () => {
 
     fetchData();
   }, []);
-
+  const copyIdToClipboard = (id: string) => {
+    navigator.clipboard.writeText(id);
+  };
   return (
     <Box>
       {loading && (
@@ -72,6 +75,7 @@ export const AllCountries = () => {
           }}
         >
           <CircularProgress />
+          <p>Loading Data....</p>
         </div>
       )}
 
@@ -175,7 +179,20 @@ export const AllCountries = () => {
                 </h2>
               )}
 
-              <h2 style={{ color: "Black" }}>Id : {country._id}</h2>
+              <h2 style={{ color: "Black" }}>
+                Id : {country._id}{" "}
+                <button
+                  style={{ width: "30px", height: "30px" }}
+                  onClick={() => copyIdToClipboard(country._id)}
+                >
+                  <Image
+                    src={copy}
+                    alt="Copy"
+                    height={25}
+                    style={{ paddingTop: "10px", marginLeft: "20px" }}
+                  />
+                </button>
+              </h2>
             </Box>
           ))}
       </Box>

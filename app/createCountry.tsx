@@ -6,6 +6,8 @@ import { useState } from "react";
 import axios from "axios";
 import Alert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
+import Image from "next/image";
+import copy from "@/public/clipboard.webp"
 
 interface Country {
   name: {
@@ -23,7 +25,7 @@ interface Country {
 
 export default function CreateCountry() {
   const [name, setName] = useState("");
-  const [population, setPopulation] = useState<number | string>('');
+  const [population, setPopulation] = useState<number | string>("");
   const [region, setRegion] = useState("");
   const [capital, setCapital] = useState("");
   const [languages, setLanguages] = useState("");
@@ -106,8 +108,10 @@ export default function CreateCountry() {
       label: "false",
     },
   ];
-  
-
+ 
+  const copyIdToClipboard = (id: string) => {
+    navigator.clipboard.writeText(id);
+  };
   return (
     <Box sx={{ display: "flex", marginLeft: "310px" }}>
       <Box
@@ -319,10 +323,10 @@ export default function CreateCountry() {
             <h2
               style={{
                 color: "Black",
-                fontSize: "200px",
+                fontSize: "160px",
                 position: "absolute",
-                top: "5px",
-                right: "20px",
+                top: "10px",
+                right: "60px",
               }}
             >
               {createdCountry.flag}
@@ -334,7 +338,20 @@ export default function CreateCountry() {
               Independent: {JSON.stringify(createdCountry.independent)}
             </h2>
 
-            <h2 style={{ color: "Black" }}>Id : {createdCountry._id}</h2>
+            <h2 style={{ color: "Black" }}>
+                Id : {createdCountry._id}
+                <button
+                  style={{ width: "30px", height: "30px" }}
+                  onClick={() => copyIdToClipboard(String(createdCountry._id))}
+                >
+                  <Image
+                    src={copy}
+                    alt="Copy"
+                    height={25}
+                    style={{ paddingTop: "10px", marginLeft: "20px" }}
+                  />
+                </button>
+              </h2>
           </Box>
         )}
       </Box>
