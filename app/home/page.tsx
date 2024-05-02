@@ -5,7 +5,8 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-
+import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown";
+import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
 import { AllCountries } from "../all-country";
 import { Countries } from "../countries";
 import { Continents } from "../region";
@@ -63,6 +64,12 @@ export default function BasicTabs() {
     router.push("/login");
     console.log("Logging out...");
   };
+  const handleScrollToBottom = () => {
+    window.scrollTo({
+      top: document.documentElement.scrollHeight,
+      behavior: "smooth",
+    });
+  };
   return (
     <Box
       sx={{
@@ -75,6 +82,9 @@ export default function BasicTabs() {
     >
       <Box
         sx={{
+          position: "sticky",
+          top: 0,
+          zIndex: 1000,
           borderBottom: 2,
           borderColor: "divider",
           display: "flex",
@@ -94,18 +104,19 @@ export default function BasicTabs() {
             justifyContent: "center",
           }}
         >
-          <Tab label="All Country" {...a11yProps(0)} />
-          <Tab label="Country" {...a11yProps(1)} />
-          <Tab label="Filter by Region" {...a11yProps(2)} />
-          <Tab label="Filter by Language" {...a11yProps(3)} />
-          <Tab label="Create a Country" {...a11yProps(4)} />
-          <Tab label="Edit a Country " {...a11yProps(5)} />
-          <Tab label="Delete a Country" {...a11yProps(6)} />
+          <Tab style={Tabstyle} label="All Country" {...a11yProps(0)} />
+          <Tab style={Tabstyle} label="Country" {...a11yProps(1)} />
+          <Tab style={Tabstyle} label="Filter by Region" {...a11yProps(2)} />
+          <Tab style={Tabstyle} label="Filter by Language" {...a11yProps(3)} />
+          <Tab style={Tabstyle} label="Create a Country" {...a11yProps(4)} />
+          <Tab style={Tabstyle} label="Edit a Country " {...a11yProps(5)} />
+          <Tab style={Tabstyle} label="Delete a Country" {...a11yProps(6)} />
           <Tab
             style={{
               color: "#10a37f",
               fontWeight: "bolder",
-              borderRadius: "4px",
+              
+              backgroundColor: "lightblue",
             }}
             onClick={handleLogOut}
             label="Log Out"
@@ -207,4 +218,11 @@ const Boxstyle: NormalCssProperties = {
   width: 520,
   fontSize: 20,
   boxShadow: "10",
+};
+
+const Tabstyle: NormalCssProperties = {
+  color: "black",
+  fontSize: "14px",
+  backgroundColor: "lightblue",
+  fontWeight: "700",
 };
