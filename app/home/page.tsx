@@ -1,21 +1,22 @@
 "use client";
-
 import * as React from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown";
-import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
 import { AllCountries } from "../all-country";
 import { Countries } from "../countries";
 import { Continents } from "../region";
 import { Language } from "../languages";
 import CreateCountry from "../createCountry";
 import EditCountry from "../editCountry";
-import { useRouter } from "next/navigation";
 import DeleteCountry from "../deleteCountry";
+import { useRouter } from "next/navigation";
 import { NormalCssProperties } from "@mui/material/styles/createMixins";
+import { CircularProgress, Button } from "@mui/material";
+import up from "@/public/up.png";
+import down from "@/public/down.png";
+import Image from "next/image";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -46,6 +47,7 @@ function CustomTabPanel(props: TabPanelProps) {
     </div>
   );
 }
+
 function a11yProps(index: number) {
   return {
     id: `simple-tab-${index}`,
@@ -55,21 +57,39 @@ function a11yProps(index: number) {
 
 export default function BasicTabs() {
   const [value, setValue] = React.useState(0);
+  const [apiLoaded, setApiLoaded] = React.useState(false);
   const router = useRouter();
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
+
   const handleLogOut = () => {
     localStorage.removeItem("token");
     router.push("/login");
     console.log("Logging out...");
   };
-  const handleScrollToBottom = () => {
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+  const scrollToBottom = () => {
     window.scrollTo({
       top: document.documentElement.scrollHeight,
       behavior: "smooth",
     });
   };
+
+  React.useEffect(() => {
+    // Simulating API loading delay with setTimeout
+    const timer = setTimeout(() => {
+      setApiLoaded(true);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <Box
       sx={{
@@ -80,120 +100,172 @@ export default function BasicTabs() {
         flexDirection: "column",
       }}
     >
-      <Box
-        sx={{
-          position: "sticky",
-          top: 0,
-          zIndex: 1000,
-          borderBottom: 2,
-          borderColor: "divider",
-          display: "flex",
-          textAlign: "center",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          aria-label="basic tabs example"
-          style={{
-            display: "flex",
-            alignContent: "center",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Tab style={Tabstyle} label="All Country" {...a11yProps(0)} />
-          <Tab style={Tabstyle} label="Country" {...a11yProps(1)} />
-          <Tab style={Tabstyle} label="Filter by Region" {...a11yProps(2)} />
-          <Tab style={Tabstyle} label="Filter by Language" {...a11yProps(3)} />
-          <Tab style={Tabstyle} label="Create a Country" {...a11yProps(4)} />
-          <Tab style={Tabstyle} label="Edit a Country " {...a11yProps(5)} />
-          <Tab style={Tabstyle} label="Delete a Country" {...a11yProps(6)} />
-          <Tab
-            style={{
-              color: "#10a37f",
-              fontWeight: "bolder",
-              
-              backgroundColor: "lightblue",
+      {apiLoaded ? (
+        <>
+          <Box
+            sx={{
+              borderBottom: 2,
+              borderColor: "divider",
+              display: "flex",
+              textAlign: "center",
+              alignItems: "center",
+              justifyContent: "center",
             }}
-            onClick={handleLogOut}
-            label="Log Out"
-          />
-        </Tabs>
-      </Box>
+          >
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              aria-label="basic tabs example"
+              style={{
+                display: "flex",
+                alignContent: "center",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Tab style={Tabstyle} label="All Country" {...a11yProps(0)} />
+              <Tab style={Tabstyle} label="Country" {...a11yProps(1)} />
+              <Tab
+                style={Tabstyle}
+                label="Filter by Region"
+                {...a11yProps(2)}
+              />
+              <Tab
+                style={Tabstyle}
+                label="Filter by Language"
+                {...a11yProps(3)}
+              />
+              <Tab
+                style={Tabstyle}
+                label="Create a Country"
+                {...a11yProps(4)}
+              />
+              <Tab style={Tabstyle} label="Edit a Country " {...a11yProps(5)} />
+              <Tab
+                style={Tabstyle}
+                label="Delete a Country"
+                {...a11yProps(6)}
+              />
+              <Tab
+                style={{
+                  color: "#10a37f",
+                  fontWeight: "bolder",
+                  backgroundColor: "lightblue",
+                }}
+                onClick={handleLogOut}
+                label="Log Out"
+              />
+            </Tabs>
+          </Box>
 
-      <CustomTabPanel value={value} index={0}>
-        <div
-          style={{
+          <CustomTabPanel value={value} index={0}>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <br></br>
+              <div style={Pagelayout}>
+                <Button onClick={scrollToBottom}>
+                  <Image
+                    src={down}
+                    alt="Down"
+                    style={{
+                      height: "30px",
+                      width: "30px",
+                      position: "absolute",
+                      left: 840,
+                      top: 90,
+                    }}
+                  />
+                </Button>
+                <AllCountries></AllCountries>
+                <Button onClick={scrollToTop}>
+                  <Image
+                    src={up}
+                    alt="Up"
+                    style={{
+                      height: "30px",
+                      width: "30px",
+                      position: "absolute",
+                      left: 840,
+                      bottom: 50,
+                    }}
+                  />
+                </Button>
+              </div>
+            </div>
+          </CustomTabPanel>
+          <CustomTabPanel value={value} index={1}>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <br></br>
+              <div style={Pagelayout}>
+                <Countries />
+              </div>
+            </div>
+          </CustomTabPanel>
+          <CustomTabPanel value={value} index={2}>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <br></br>
+              <div style={Pagelayout}>
+                <Continents />
+              </div>
+            </div>
+          </CustomTabPanel>
+          <CustomTabPanel value={value} index={3}>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <br></br>
+              <div style={Pagelayout}>
+                <Language />
+              </div>
+            </div>
+          </CustomTabPanel>
+          <CustomTabPanel value={value} index={4}>
+            <CreateCountry></CreateCountry>
+          </CustomTabPanel>
+          <CustomTabPanel value={value} index={5}>
+            <EditCountry />
+          </CustomTabPanel>
+          <CustomTabPanel value={value} index={6}>
+            <DeleteCountry></DeleteCountry>
+          </CustomTabPanel>
+        </>
+      ) : (
+        <Box
+          sx={{
             display: "flex",
-            flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
+            height: "100vh",
           }}
         >
-          <br></br>
-          <div style={Pagelayout}>
-            <AllCountries></AllCountries>
-          </div>
-        </div>
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={1}>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <br></br>
-          <div style={Pagelayout}>
-            <Countries />
-          </div>
-        </div>
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={2}>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <br></br>
-          <div style={Pagelayout}>
-            <Continents />
-          </div>
-        </div>
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={3}>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <br></br>
-          <div style={Pagelayout}>
-            <Language />
-          </div>
-        </div>
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={4}>
-        <CreateCountry></CreateCountry>
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={5}>
-        <EditCountry />
-      </CustomTabPanel>
-
-      <CustomTabPanel value={value} index={6}>
-        <DeleteCountry></DeleteCountry>
-      </CustomTabPanel>
+          <CircularProgress />
+        </Box>
+      )}
     </Box>
   );
 }
@@ -204,20 +276,6 @@ const Pagelayout: NormalCssProperties = {
   justifyContent: "center",
   flexWrap: "wrap",
   gap: "20px",
-};
-
-const Boxstyle: NormalCssProperties = {
-  overflow: "hidden",
-  position: "relative",
-  justifyContent: "center",
-  border: 2,
-  borderRadius: 5,
-  borderColor: "primary.main",
-  padding: 2,
-  marginBottom: 2,
-  width: 520,
-  fontSize: 20,
-  boxShadow: "10",
 };
 
 const Tabstyle: NormalCssProperties = {

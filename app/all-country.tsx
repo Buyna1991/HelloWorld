@@ -1,11 +1,13 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import styles from "./Country.module.css"; // Importing CSS module
-import { Box, CircularProgress } from "@mui/material";
+
+import { Box, Button, CircularProgress } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { NormalCssProperties } from "@mui/material/styles/createMixins";
 import Image from "next/image";
-import copy from"@/public/clipboard.webp";
+import copy from "@/public/clipboard.webp";
+import google from "@/public/gmap.png"
+
 
 interface Country {
   _id: string;
@@ -64,6 +66,7 @@ export const AllCountries = () => {
   const copyIdToClipboard = (id: string) => {
     navigator.clipboard.writeText(id);
   };
+
   return (
     <Box>
       {loading && (
@@ -94,6 +97,7 @@ export const AllCountries = () => {
           </h1>
         </div>
       )}
+
       <Box
         sx={{
           display: "flex",
@@ -168,7 +172,7 @@ export const AllCountries = () => {
               </h2>
               {country.maps && country.maps.googleMaps && (
                 <h2 style={{ color: "#10a37f", display: "flex" }}>
-                  <Image src="/map.png" width={40} height={40} alt="Map icon" />
+                  <Image src={google} width={50} height={50} alt="Map icon" />
                   <Link
                     target="_blank"
                     style={{ paddingTop: "20px", paddingLeft: "10px" }}
