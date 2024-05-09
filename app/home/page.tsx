@@ -14,9 +14,8 @@ import DeleteCountry from "../deleteCountry";
 import { useRouter } from "next/navigation";
 import { NormalCssProperties } from "@mui/material/styles/createMixins";
 import { CircularProgress, Button } from "@mui/material";
-import up from "@/public/up.png";
-import down from "@/public/down.png";
-import Image from "next/image";
+
+import { useEffect, useState } from "react";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -56,8 +55,8 @@ function a11yProps(index: number) {
 }
 
 export default function BasicTabs() {
-  const [value, setValue] = React.useState(0);
-  const [apiLoaded, setApiLoaded] = React.useState(false);
+  const [value, setValue] = useState(0);
+  const [apiLoaded, setApiLoaded] = useState(false);
   const router = useRouter();
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -68,24 +67,12 @@ export default function BasicTabs() {
     router.push("/login");
     console.log("Logging out...");
   };
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
-  const scrollToBottom = () => {
-    window.scrollTo({
-      top: document.documentElement.scrollHeight,
-      behavior: "smooth",
-    });
-  };
+ 
 
-  React.useEffect(() => {
-    // Simulating API loading delay with setTimeout
+  useEffect(() => {
     const timer = setTimeout(() => {
       setApiLoaded(true);
-    }, 2000);
+    }, 1000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -169,33 +156,7 @@ export default function BasicTabs() {
             >
               <br></br>
               <div style={Pagelayout}>
-                <Button onClick={scrollToBottom}>
-                  <Image
-                    src={down}
-                    alt="Down"
-                    style={{
-                      height: "30px",
-                      width: "30px",
-                      position: "absolute",
-                      left: 840,
-                      top: 90,
-                    }}
-                  />
-                </Button>
                 <AllCountries></AllCountries>
-                <Button onClick={scrollToTop}>
-                  <Image
-                    src={up}
-                    alt="Up"
-                    style={{
-                      height: "30px",
-                      width: "30px",
-                      position: "absolute",
-                      left: 840,
-                      bottom: 50,
-                    }}
-                  />
-                </Button>
               </div>
             </div>
           </CustomTabPanel>

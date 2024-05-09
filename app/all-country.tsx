@@ -6,8 +6,9 @@ import { useRouter } from "next/navigation";
 import { NormalCssProperties } from "@mui/material/styles/createMixins";
 import Image from "next/image";
 import copy from "@/public/clipboard.webp";
-import google from "@/public/gmap.png"
-
+import google from "@/public/gmap.png";
+import up from "@/public/up.png";
+import down from "@/public/down.png";
 
 interface Country {
   _id: string;
@@ -66,6 +67,18 @@ export const AllCountries = () => {
   const copyIdToClipboard = (id: string) => {
     navigator.clipboard.writeText(id);
   };
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+  const scrollToBottom = () => {
+    window.scrollTo({
+      top: document.documentElement.scrollHeight,
+      behavior: "smooth",
+    });
+  };
 
   return (
     <Box>
@@ -96,6 +109,22 @@ export const AllCountries = () => {
             API: /world/countries
           </h1>
         </div>
+      )}
+
+      {apiLoaded && (
+        <Button onClick={scrollToBottom}>
+          <Image
+            src={down}
+            alt="Down"
+            style={{
+              height: "30px",
+              width: "30px",
+              position: "absolute",
+              left: 1670,
+              top: 16,
+            }}
+          />
+        </Button>
       )}
 
       <Box
@@ -200,6 +229,21 @@ export const AllCountries = () => {
             </Box>
           ))}
       </Box>
+      {apiLoaded && (
+        <Button onClick={scrollToTop}>
+          <Image
+            src={up}
+            alt="Up"
+            style={{
+              height: "30px",
+              width: "30px",
+              position: "absolute",
+              left: 1670,
+              bottom: 34,
+            }}
+          />
+        </Button>
+      )}
     </Box>
   );
 };
